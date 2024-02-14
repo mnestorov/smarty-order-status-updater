@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: SM - Order Status Updater for WoOCommerce
+ * Plugin Name: SM - Order Status Updater for WooCommerce
  * Plugin URI:  https://smartystudio.net
  * Description: Updates order statuses in WooCommerce based on updates from an external Laravel system.
  * Version:     1.0.0
@@ -16,7 +16,7 @@ if (!defined('WPINC')) {
 }
 
 // Define your secret token here. Make sure this is a strong, unique value.
-define( 'SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN', 'Lq2FVsEeEATS34t8JCMGWqNeNwbyZca7' );
+define( 'SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN', 'your_secret_token' );
 
 add_action( 'rest_api_init', function () {
     register_rest_route( 'smarty-order-status-updater/v1', '/update-status/', array(
