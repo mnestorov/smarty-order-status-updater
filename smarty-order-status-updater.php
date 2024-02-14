@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: SM - Order Status Updater for WoOCommerce
- * Plugin URI: https://smartystudio.net
+ * Plugin URI:  https://smartystudio.net
  * Description: Updates order statuses in WooCommerce based on updates from an external Laravel system.
- * Version: 1.0.0
+ * Version:     1.0.0
  * Author:      Smarty Studio | Martin Nestorov
  * Author URI:  https://smartystudio.net
  * License:     GPL-2.0+
@@ -16,7 +16,7 @@ if (!defined('WPINC')) {
 }
 
 // Define your secret token here. Make sure this is a strong, unique value.
-define( 'SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN', 'your_secret_token_here' );
+define( 'SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN', 'Lq2FVsEeEATS34t8JCMGWqNeNwbyZca7' );
 
 add_action( 'rest_api_init', function () {
     register_rest_route( 'smarty-order-status-updater/v1', '/update-status/', array(
@@ -30,7 +30,7 @@ if (!function_exists('smarty_order_status_updater_permissions_check')) {
     function smarty_order_status_updater_permissions_check( WP_REST_Request $request ) {
         $token = $request->get_header( 'x-auth-token' );
 
-        if ( $token !== WOOCOMMERCE_ORDER_STATUS_UPDATER_SECRET_TOKEN ) {
+        if ( $token !== SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN ) {
             return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ) );
         }
 
