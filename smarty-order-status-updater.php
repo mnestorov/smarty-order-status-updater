@@ -68,7 +68,7 @@ if (!function_exists('smarty_order_status_updater_callback')) {
         $new_status = $params['status'] ?? '';
 
         if (empty($order_id) || empty($new_status)) {
-            return new WP_Error( 'missing_parameters', 'Missing order ID or new status.', array( 'status' => 400 ) );
+            return new WP_Error('missing_parameters', 'Missing order ID or new status.', array('status' => 400));
         }
 
         $order = wc_get_order($order_id);
