@@ -39,7 +39,8 @@ if (!function_exists('smarty_order_status_updater_permissions_check')) {
      * @return true|WP_Error Returns true if the token is valid, otherwise returns WP_Error object for unauthorized access.
      */
     function smarty_order_status_updater_permissions_check(WP_REST_Request $request) {
-        $token = $request->get_header('x-auth-token');
+        //$token = $request->get_header('x-auth-token');
+        $token = $request->get_param('secret'); // Getting token from URL query parameter
 
         if ($token !== SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN) {
             return new WP_Error('forbidden_access', 'Access denied', array('status' => 403));
@@ -82,3 +83,29 @@ if (!function_exists('smarty_order_status_updater_callback')) {
         return new WP_REST_Response(array('success' => true, 'message' => 'Order status updated.'), 200);
     }
 }
+
+/**
+ * Flush rewrite rules on plugin activation to ensure our custom endpoint is available.
+ */
+function smarty_order_status_updater_activate() {
+    // Add your custom endpoint.
+    add_action('rest_api_init', function () {
+        register_rest_route('smarty-order-status-updater/v1', '/update-status/', array(
+            'methods' => 'POST',
+            'callback' => 'smarty_order_status_updater_callback',
+            'permission_callback' => 'smarty_order_status_updater_permissions_check'
+        ));
+    });
+
+    // Flush rewrite rules to ensure our custom endpoint is recognized.
+    flush_rewrite_rules();
+}
+register_activation_hook(__FILE__, 'smarty_order_status_updater_activate');
+
+/**
+ * Flush rewrite rules on plugin deactivation.
+ */
+function smarty_order_status_updater_deactivate() {
+    flush_rewrite_rules();
+}
+register_deactivation_hook(__FILE__, 'smarty_order_status_updater_deactivate');
