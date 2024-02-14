@@ -9,11 +9,14 @@
 
 ## Overview
 
-...
+**Smarty Studio - Order Status Updater for WooCommerce** is a WordPress plugin designed to automate the synchronization of order statuses between an external system and your WooCommerce store. This plugin listens for notifications from an external order management system, such as a Laravel application, and updates the WooCommerce order statuses accordingly. It ensures that your WooCommerce store reflects the most current order status, improving the efficiency of order management and customer satisfaction.
 
 ## Features
 
-...
+- **Automated Order Status Synchronization:** Automatically updates WooCommerce order statuses based on notifications from an external system.
+- **Secure Communication:** Utilizes a secure token-based authentication system to ensure that only authorized requests can update order statuses.
+- **Easy to Integrate:** Designed for easy integration with any system capable of sending HTTP POST requests, making it highly versatile.
+- **Customizable:** Offers the flexibility to define and use custom order statuses to match your unique workflow.
 
 ## Installation
 
@@ -22,7 +25,10 @@
 
 ## Usage
 
-...
+**To use this plugin, you'll need to:**
+
+1. Set a secure token in the plugin code for authentication.
+2. Configure the external order management system to send HTTP POST requests to your WooCommerce site's REST API endpoint (`/wp-json/smarty-order-status-updater/v1/update-status/`). These requests must include the order ID, the new status, and the secure token in the request header for authentication.
 
 ## Requirements
 
