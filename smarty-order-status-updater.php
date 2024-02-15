@@ -16,7 +16,7 @@ if (!defined('WPINC')) {
 }
 
 // Define your secret token here. Make sure this is a strong, unique value.
-define('SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN', 'Lq2FVsEeEATS34t8JCMGWqNeNwbyZca7');
+define('SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN', 'your_secret_key');
 
 // Register REST API route
 add_action('rest_api_init', function () {
