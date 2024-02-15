@@ -40,8 +40,8 @@ if (!function_exists('smarty_order_status_updater_permissions_check')) {
      * @return true|WP_Error Returns true if the token is valid, otherwise returns WP_Error object for unauthorized access.
      */
     function smarty_order_status_updater_permissions_check(WP_REST_Request $request) {
-        //$token = $request->get_header('x-auth-token');
-        $token = $request->get_param('secret'); // Getting token from URL query parameter
+        $token = $request->get_header('x-auth-token');
+        //$token = $request->get_param('secret'); // Getting token from URL query parameter
 
         if ($token !== SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN) {
             return new WP_Error('forbidden_access', 'Access denied', array('status' => 403));
