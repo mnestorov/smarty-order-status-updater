@@ -18,6 +18,7 @@ if (!defined('WPINC')) {
 // Define your secret token here. Make sure this is a strong, unique value.
 define('SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN', 'Lq2FVsEeEATS34t8JCMGWqNeNwbyZca7');
 
+// Register REST API route
 add_action('rest_api_init', function () {
     register_rest_route('smarty-order-status-updater/v1', '/update-status/', array(
         'methods' => 'POST',
@@ -84,28 +85,22 @@ if (!function_exists('smarty_order_status_updater_callback')) {
     }
 }
 
-/**
- * Flush rewrite rules on plugin activation to ensure our custom endpoint is available.
- */
-function smarty_order_status_updater_activate() {
-    // Add your custom endpoint.
-    add_action('rest_api_init', function () {
-        register_rest_route('smarty-order-status-updater/v1', '/update-status/', array(
-            'methods' => 'POST',
-            'callback' => 'smarty_order_status_updater_callback',
-            'permission_callback' => 'smarty_order_status_updater_permissions_check'
-        ));
-    });
-
-    // Flush rewrite rules to ensure our custom endpoint is recognized.
-    flush_rewrite_rules();
+if (!function_exists('smarty_order_status_updater_activate')) {
+    /**
+     * Flush rewrite rules on plugin activation to ensure our custom endpoint is available.
+     */
+    function smarty_order_status_updater_activate() {
+        flush_rewrite_rules();
+    }
+    register_activation_hook(__FILE__, 'smarty_order_status_updater_activate');
 }
-register_activation_hook(__FILE__, 'smarty_order_status_updater_activate');
 
-/**
- * Flush rewrite rules on plugin deactivation.
- */
-function smarty_order_status_updater_deactivate() {
-    flush_rewrite_rules();
+if (!function_exists('smarty_order_status_updater_deactivate')) {
+    /**
+     * Flush rewrite rules on plugin deactivation.
+     */
+    function smarty_order_status_updater_deactivate() {
+        flush_rewrite_rules();
+    }
+    register_deactivation_hook(__FILE__, 'smarty_order_status_updater_deactivate');
 }
-register_deactivation_hook(__FILE__, 'smarty_order_status_updater_deactivate');
