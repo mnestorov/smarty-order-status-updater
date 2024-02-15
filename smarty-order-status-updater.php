@@ -44,7 +44,7 @@ if (!function_exists('smarty_order_status_updater_permissions_check')) {
         //$token = $request->get_param('secret'); // Getting token from URL query parameter
 
         if ($token !== SMARTY_ORDER_STATUS_UPDATER_SECRET_TOKEN) {
-            return new WP_Error('forbidden_access', 'Access denied', array('status' => 403));
+            return new WP_Error('forbidden_access', 'Access denied', array('new_status' => 403));
         }
 
         return true;
@@ -67,15 +67,15 @@ if (!function_exists('smarty_order_status_updater_callback')) {
     function smarty_order_status_updater_callback(WP_REST_Request $request) {
         $params = $request->get_json_params();
         $order_id = $params['order_id'] ?? '';
-        $new_status = $params['status'] ?? '';
+        $new_status = $params['new_status'] ?? '';
 
         if (empty($order_id) || empty($new_status)) {
-            return new WP_Error('missing_parameters', 'Missing order ID or new status.', array('status' => 400));
+            return new WP_Error('missing_parameters', 'Missing order ID or new status.', array('new_status' => 400));
         }
 
         $order = wc_get_order($order_id);
         if (!$order) {
-            return new WP_Error('invalid_order', 'Order not found.', array( 'status' => 404));
+            return new WP_Error('invalid_order', 'Order not found.', array('new_status' => 404));
         }
 
         // Assuming 'status' is a valid WooCommerce status
