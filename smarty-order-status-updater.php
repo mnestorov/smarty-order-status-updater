@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: SM - Order Status Updater for WooCommerce
- * Plugin URI:  https://smartystudio.net
+ * Plugin URI:  https://smartystudio.net/smarty-order-status-updater
  * Description: Updates order statuses in WooCommerce based on updates from an external Laravel system.
  * Version:     1.0.0
  * Author:      Smarty Studio | Martin Nestorov
